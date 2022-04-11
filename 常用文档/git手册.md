@@ -1049,6 +1049,10 @@ git rm --cache fileName
 
 简单说 --cache只是取消track
 
+
+
+git rm --cached .idea/\*.* 取消对目录所有文件的追踪 
+
 ---
 
 ### remote
