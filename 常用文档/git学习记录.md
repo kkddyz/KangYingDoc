@@ -667,6 +667,8 @@ fatal: could not resolve HEAD
 
 这个命令会从版本库中 查找 a.txt的最新版本然后覆盖暂存区原来的文件。
 
+> 当一个文件被add后，通过restore --staged 移除暂存区
+
 将这个错误标记为E1 
 
 ---
@@ -695,6 +697,8 @@ no changes added to commit (use "git add" and/or "git commit -a")
 
 
 与rm --cache 不同 restore只是移除暂存区的文件，但是并未取消对文件的追踪。
+
+> restore --staged 就是单纯将暂存区中的文件移除(不会影响工作区和版本库)，是add的反操作。
 
 ---
 

@@ -1225,9 +1225,9 @@ E:\桌面\test>git restore a.txt
 
 ---
 
-在S3的状态下，使用restore恢复到s2(不可以在编辑器中手动将修改为S2的内容)
+在S3的状态下，使用restore恢复到s2(不可以在编辑器中手动将修改为S2的内容)，后
 
-增加一行错误数据 ，并更新到暂存区。状态标记为S4
+重新增加一行错误数据 ，并更新到暂存区。状态标记为S4
 
 ![image-20210712152749170](https://kkddyz-oss-image-hosting-service.oss-cn-hangzhou.aliyuncs.com/image/20210712152749.png)
 
@@ -1242,13 +1242,27 @@ fatal: could not resolve HEAD
 
 将这个错误标记为E1 
 
+> restore 用于恢复对工作区的修改(恢复为暂存区，或者版本库的内容)
+>
+> 此时工作区与暂存区内容相同，因此restore操作是无效的
+
 ---
 
-验证E1 在 S3的状态下。更新暂存区，并提交。标记为状态5
+验证E1
+
+ 在S3下,更新暂存区，并提交。状态为标记S5
 
 ![image-20210712155204423](https://kkddyz-oss-image-hosting-service.oss-cn-hangzhou.aliyuncs.com/image/20210712155204.png)
 
-添加一行错误信息，并且add 
+在工作区添加一行错误信息，并且通过add同步到暂存区，(暂存区与版本库不一致)
+
+此时使用 `restore --staged`会将暂存区的add的内容丢弃，使其与版本库一直。
+
+
+
+
+
+`no changes added to commit`说明之前的add操作撤销了，`modified： a.txt`说明工作区的修改没有被撤销
 
 ```
 E:\桌面\test>git restore --staged a.txt
@@ -1265,9 +1279,13 @@ no changes added to commit (use "git add" and/or "git commit -a")
 
 ![image-20210712155818228](https://kkddyz-oss-image-hosting-service.oss-cn-hangzhou.aliyuncs.com/image/20210712155818.png)
 
+> 图中 暂存区内容与版本库一致
 
+---
 
-与rm --cache 不同 restore只是移除暂存区的文件，但是并未取消对文件的追踪。
+与rm --cache 不同 restore只是撤销修改的文件，但是并未取消对文件的追踪。
+
+- 通过参数指定撤销工作区还是暂存区的修改(一般都是暂存区)
 
 ---
 
